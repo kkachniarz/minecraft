@@ -51,7 +51,9 @@ public class HouseDTO {
 		thirdPage = thirdPage + "\n Balcony: " + (this.lift ? "Yes" : "No");
 		thirdPage = thirdPage + "\n Number of Rooms: " + this.numberRooms;
 		thirdPage = thirdPage + "\n Floor: " + this.floor;
-		thirdPage = thirdPage + " \n\n Price: " + this.sellingPrice;
+		if (this.sellingPrice != 0) {
+			thirdPage = thirdPage + " \n\n Price: " + this.sellingPrice;
+		}
 		meta.setPages(Arrays.asList(firstPage, thirdPage));
 		meta.setAuthor("homegate.ch");
 		meta.setTitle("Offer");

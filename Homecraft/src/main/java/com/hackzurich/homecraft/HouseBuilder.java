@@ -190,6 +190,6 @@ public class HouseBuilder {
 	
 	public void copyTetrisBuilding()
 	{
-		copyFromArea(300, floorLevel, 0);
+		copyFromArea(301, floorLevel, 0);
 	}
 }
