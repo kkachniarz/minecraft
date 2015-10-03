@@ -122,9 +122,13 @@ public class HouseBuilder {
 
 		sign.update();
 	}
+
+	public void copyFromArea(int _x, int _y, int _z) {
+		this.copyFromArea(_x, _y, _z, true);
+	}
 	
 	// x, y, z - center of copy area
-	public void copyFromArea(int _x, int _y, int _z)
+	public void copyFromArea(int _x, int _y, int _z, boolean copy_air)
 	{
 		for (int i = -fieldSize / 2; i < fieldSize / 2; i++) {
 			for (int j = -fieldSize / 2; j < fieldSize / 2; j++) {
@@ -146,7 +150,9 @@ public class HouseBuilder {
 						currentBlock =  this.world.getBlockAt(x + i,  y + k, z - j);
 					}
 				
-					currentBlock.setType(copyBlock.getType());
+					if (copyBlock.getType() != Material.AIR) {
+					     currentBlock.setType(copyBlock.getType());
+					}
 				}
 			}
 		}
