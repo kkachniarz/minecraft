@@ -95,7 +95,14 @@ public class HouseBuilder {
 		block.setType(Material.SIGN_POST);
 		
 		Sign sign = (Sign)block.getState();
-		sign.setLine(1, this.house.title);
+
+		String[] parts = this.house.title.split("(?<=\\G.{12})");
+		for (int i = 0; i < 4; i++) {
+			if (i < parts.length) {
+				sign.setLine(i, parts[i]);
+			}
+		}
+
 		sign.update();
 	}
 }
