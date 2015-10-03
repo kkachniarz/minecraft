@@ -1,3 +1,7 @@
 name: Homecraft
 main: com.hackzurich.homecraft.Homecraft
 version: 0.0.1
+commands:
+   homecraft:
+      description: The Homecraft command
+      usage: /homecraft

@@ -7,14 +7,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Homecraft extends JavaPlugin {
 	@Override
 	public void onEnable() {
-		// Insert logic that is run when plugin is started.
-		getLogger().info("onEnable has been invoked");
-		try {
-			HomegateManager.getData();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// Setup the HomecraftCommandExecutor
+		getCommand("homecraft").setExecutor(new HomecraftCommandExecutor(this));
 	}
 	
 	@Override

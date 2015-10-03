@@ -10,4 +10,5 @@ data/
 plugins/
 uid.dat
 level.dat
+ops.json
 
