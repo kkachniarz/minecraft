@@ -66,8 +66,23 @@ public final class HomegateManager {
 				house.longitude = Double.parseDouble(parts[1]);
 			}
 			
-			house.pictures = null; // TODO
-			
+			if(obj.has("pictures")) {	
+				Object item = obj.get("pictures"); 
+				ArrayList<String> pictures = new ArrayList<String>();
+			    if (item instanceof JSONArray)
+			    {
+					JSONArray picturesJson = obj.getJSONArray("pictures");
+					for(int j = 0 ; j < picturesJson.length() ; j++){
+						pictures.add(picturesJson.getString(j));
+					}
+			    }
+			    else
+			    {
+			    	pictures.add(item.toString());
+			    }
+				house.pictures = pictures;
+			}
+
 			houses.add(house);
 		}
 		return houses;		
