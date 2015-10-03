@@ -90,7 +90,7 @@ public class DataReadyTask extends BukkitRunnable {
 		
 		
 		// Add some streets.
-		this.buildStreets(3);
+		this.buildStreets(5);
 	}
 	
 	/** Builds count number of streets. */
@@ -105,17 +105,28 @@ public class DataReadyTask extends BukkitRunnable {
 			
 			// Calculate how to connect these houses
 			int xdistance = end_house.latitude_absolute - start_house.latitude_absolute;
-			int ydistance = end_house.longitude_absolute - start_house.latitude_absolute;
+			int ydistance = end_house.longitude_absolute - start_house.longitude_absolute;
 			
 			Location start = null;
 			if (xdistance < 0) {
-				start = end_house.getLocation();
+				start = end_house.getLocation().add(1, 0, 0);
 			}
 			else {
-				start = start_house.getLocation();
+				start = start_house.getLocation().add(1, 0, 0);
 			}
 
-			StreetBuilder builder = new StreetBuilder(start, 0, Math.abs(xdistance));
+			StreetBuilder builder = new StreetBuilder(start, 0, Math.abs(xdistance + 1));
+			builder.build();
+			
+			
+			if (ydistance < 0) {
+				start = start_house.getLocation().subtract(0, 0, 1);
+			}
+			else {
+				start = end_house.getLocation().subtract(0, 0, 1);
+			}
+			
+			builder = new StreetBuilder(start, 3, Math.abs(ydistance + 1));
 			builder.build();
 		}
 	}
