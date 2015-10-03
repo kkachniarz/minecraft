@@ -8,6 +8,10 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 
 public class HouseBuilder {
+	
+	public static int fieldSize = 31;
+	public static int numberOfFieldsInDimension = 10;
+	
 	private HouseDTO house;
 	private Homecraft plugin;
 	private int x, y, z;
