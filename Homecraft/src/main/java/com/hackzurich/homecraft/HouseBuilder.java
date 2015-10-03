@@ -77,8 +77,10 @@ public class HouseBuilder {
 			copyRichBuilding();
 		else if(this.house.numberRooms <= 4) 
 			copyBigBuilding();
-		else
+		else if(this.house.numberRooms <= 5) 
 			copyTetrisBuilding();
+		else
+			copyBolkoBuilding();
 		
 		Block signBlock = this.world.getBlockAt(x + 5,  y+1, z + 5);
 		this.turnToSign(signBlock);
@@ -203,5 +205,10 @@ public class HouseBuilder {
 	public void copyTetrisBuilding()
 	{
 		copyFromArea(301, floorLevel, 0);
+	}
+	
+	public void copyBolkoBuilding()
+	{
+		copyFromArea(399, floorLevel, 0);
 	}
 }
