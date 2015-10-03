@@ -80,6 +80,8 @@ public class HouseBuilder {
 		
 		Block signBlock = this.world.getBlockAt(x + 5,  y+1, z + 5);
 		this.turnToSign(signBlock);
+		
+		this.house.createBook(this.world);
 	}
 	
 	/**
