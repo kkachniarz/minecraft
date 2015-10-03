@@ -1,5 +1,7 @@
 package com.hackzurich.homecraft;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -9,7 +11,7 @@ import org.bukkit.block.Sign;
 
 public class HouseBuilder {
 	
-	public static int fieldSize = 31;
+	public static int fieldSize = 5;
 	public static int numberOfFieldsInDimension = 10;
 	
 	private HouseDTO house;
@@ -52,6 +54,37 @@ public class HouseBuilder {
 			Block currentBlock = this.world.getBlockAt(x, y, z+i);
 			currentBlock.setType(Material.GOLD_BLOCK);
 		}
+		
+		// Fence
+		ArrayList<Block> border = this.getBorderBlocks(1);
+		for (Block block : border) {
+			block.setType(Material.FENCE);
+		}
+	}
+	
+	/**
+	 * Get the border blocks. Level is the height above ground. 0 is the ground.
+	 * @param level
+	 * @return The blocks. They will not be in order.
+	 */
+	public ArrayList<Block> getBorderBlocks(int level) 
+	{
+		ArrayList<Block> blocks = new ArrayList<Block>();
+		int size = HouseBuilder.fieldSize / 2;
+		int absoluteLevel = this.y + level - 1;
+		for (int i = 0; i < HouseBuilder.fieldSize; i++) {
+			// One dimension
+			blocks.add(this.world.getBlockAt(this.x - size + i, absoluteLevel, this.z - size));
+			blocks.add(this.world.getBlockAt(this.x - size + i, absoluteLevel, this.z + size));
+		}
+		
+		for (int i = 0; i < HouseBuilder.fieldSize - 1; i++) {
+			// The other dimension
+			blocks.add(this.world.getBlockAt(this.x - size, absoluteLevel, this.z - size + i));
+			blocks.add(this.world.getBlockAt(this.x + size, absoluteLevel, this.z - size + i));
+		}
+		
+		return blocks;
 	}
 	
 	/**

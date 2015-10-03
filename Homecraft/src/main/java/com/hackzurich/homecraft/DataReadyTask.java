@@ -55,10 +55,11 @@ public class DataReadyTask extends BukkitRunnable {
 			house.latitude = normLat.Normalize(house.latitude);
 			house.longitude = normLon.Normalize(house.longitude);
 			
-			this.plugin.getLogger().info("Build house in: (" + (int)house.latitude + ", " + (int)house.longitude + ")");
+			this.plugin.getLogger().info("Build house in (offset): (" + (int)house.latitude + ", " + (int)house.longitude + ")");
 			
 			Location loc = player.getLocation().clone();
 			loc.add((int)house.latitude, 0, (int)house.longitude);
+			this.plugin.getLogger().info("Build hous in (absolute): (" + (int) loc.getBlockX() + ", " + (int) loc.getBlockZ() + ")");
 			HouseBuilder builder = new HouseBuilder(this.plugin, loc, house);
 			builder.build();
 		}
