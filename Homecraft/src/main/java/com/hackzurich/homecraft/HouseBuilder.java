@@ -12,7 +12,9 @@ import org.bukkit.block.Sign;
 
 public class HouseBuilder {
 	
-	public static int fieldSize = 5;
+	public static int floorLevel = 3;
+	
+	public static int fieldSize = 11;
 	public static int numberOfFieldsInDimension = 11;
 	
 	private HouseDTO house;
@@ -34,7 +36,7 @@ public class HouseBuilder {
 		this.init();
 		this.house = house;
 		this.x = x;
-		this.y = y;
+		this.y = floorLevel; // Force building to be always on ground level 
 		this.z = z;
 	}
 	
@@ -43,7 +45,7 @@ public class HouseBuilder {
 		this.init();
 		this.house = house;
 		this.x = location.getBlockX();
-		this.y = location.getBlockY();
+		this.y = floorLevel; // location.getBlockY();
 		this.z = location.getBlockZ();
 	}
 	
@@ -51,8 +53,9 @@ public class HouseBuilder {
 	 * Build the actual house
 	 */
 	public void build() {
-		int roomCount = this.house.numberRooms;
-		
+
+		/*
+		 * 		int roomCount = this.house.numberRooms;
 		Block signBlock = this.world.getBlockAt(x,  y+1, z);
 		this.turnToSign(signBlock);
 		
@@ -66,6 +69,14 @@ public class HouseBuilder {
 		for (Block block : border) {
 			block.setType(Material.FENCE);
 		}
+		*/
+		
+		if(this.house.numberRooms >= 4)
+			copyBigBuilding();
+		else if(this.house.sellingPrice >= 400000) 
+			copyRichBuilding();
+		else
+			copySmallBuilding();
 	}
 	
 	/**
@@ -110,5 +121,49 @@ public class HouseBuilder {
 		}
 
 		sign.update();
+	}
+	
+	// x, y, z - center of copy area
+	public void copyFromArea(int _x, int _y, int _z)
+	{
+		for (int i = -fieldSize / 2; i < fieldSize / 2; i++) {
+			for (int j = -fieldSize / 2; j < fieldSize / 2; j++) {
+				for (int k = 0; k < 10 * fieldSize; k++) {
+					
+					Block copyBlock = this.world.getBlockAt(_x + i,  _y + k, _z + j);; 
+					Block currentBlock = null;
+					
+					if (orientation == 0) {
+						currentBlock =  this.world.getBlockAt(x + i,  y + k, z + j);
+					}
+					else if (orientation == 1) {
+						currentBlock =  this.world.getBlockAt(x - i,  y + k, z + j);
+					}
+					else if (orientation == 2) {
+						currentBlock =  this.world.getBlockAt(x - i,  y + k, z - j);
+					}
+					else {
+						currentBlock =  this.world.getBlockAt(x + i,  y + k, z - j);
+					}
+				
+					currentBlock.setType(copyBlock.getType());
+				}
+			}
+		}
+	}
+	
+	public void copySmallBuilding()
+	{
+		copyFromArea(0, floorLevel, 0);
+	}
+	
+	public void copyBigBuilding()
+	{
+		copyFromArea(100, floorLevel, 0);
+	}
+	
+	public void copyRichBuilding()
+	{
+		copyFromArea(200, floorLevel, 0);
 	}
 }
