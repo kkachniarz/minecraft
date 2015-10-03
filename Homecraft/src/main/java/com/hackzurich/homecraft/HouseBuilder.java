@@ -126,9 +126,9 @@ public class HouseBuilder {
 	// x, y, z - center of copy area
 	public void copyFromArea(int _x, int _y, int _z)
 	{
-		for (int i = -fieldSize / 2; i < fieldSize / 2; i++) {
-			for (int j = -fieldSize / 2; j < fieldSize / 2; j++) {
-				for (int k = 0; k < 10 * fieldSize; k++) {
+		for (int i = -fieldSize / 2; i <= fieldSize / 2; i++) {
+			for (int j = -fieldSize / 2; j <= fieldSize / 2; j++) {
+				for (int k = 0; k <= 10 * fieldSize; k++) {
 					
 					Block copyBlock = this.world.getBlockAt(_x + i,  _y + k, _z + j);; 
 					Block currentBlock = null;
