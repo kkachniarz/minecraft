@@ -18,5 +18,4 @@ public class HomecraftCommandExecutor implements CommandExecutor {
 		
 		return false;
 	}
-	
 }
