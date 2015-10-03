@@ -2,7 +2,7 @@
 
 Run following command to start server: 
 
-    java -Xmx1024M -jar craftbukkit-1.8.8.jar -o true
+    java -Xmx1024M -jar craftbukkit-1.8.8.jar -o false
 
 ## Connect
 
