@@ -8,6 +8,9 @@ public class Homecraft extends JavaPlugin {
 	
 		// Setup the HomecraftCommandExecutor
 		getCommand("homecraft").setExecutor(new HomecraftCommandExecutor(this));
+		
+		// Setup the Text...
+		getCommand("text").setExecutor(new TextCommandExecutor(this));
 	}
 	
 	@Override

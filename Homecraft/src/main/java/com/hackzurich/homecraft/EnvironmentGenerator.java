@@ -29,8 +29,8 @@ public class EnvironmentGenerator {
 		int y_min = center.getBlockZ() - size/2;
 		int y_max = center.getBlockZ() + size/2;
 		
-		int size_x = Math.abs(x_max - x_min) / 2;
-		int size_y = Math.abs(y_max - y_min) / 2;
+		int size_x = Math.abs(x_max - x_min) / 3;
+		int size_y = Math.abs(y_max - y_min) / 3;
 		
 		this.generateTrees(x_min - size_x, x_max + size_x, y_min - size_y, y_max + size_y);
 	}
@@ -41,7 +41,7 @@ public class EnvironmentGenerator {
 		World world = Bukkit.getWorld("Homecraft");
 		
 		int i = 0;
-		while (i < 400) {
+		while (i < 800) {
 			int x = generator.nextInt(x_max - x_min) + x_min;
 			int y = generator.nextInt(y_max - y_min) + y_min;
 			

@@ -14,8 +14,8 @@ public class HouseBuilder {
 	
 	public static int floorLevel = 3;
 	
-	public static int fieldSize = 11;
-	public static int numberOfFieldsInDimension = 11;
+	public static int fieldSize = 19;
+	public static int numberOfFieldsInDimension = 17;
 	
 	private HouseDTO house;
 	private Homecraft plugin;
@@ -71,15 +71,19 @@ public class HouseBuilder {
 		}
 		*/
 		
-		if(this.house.numberRooms >= 4)
-			copyBigBuilding();
-		else if(this.house.sellingPrice >= 400000) 
-			copyRichBuilding();
-		else
+		if(this.house.numberRooms <= 2)
 			copySmallBuilding();
+		else if(this.house.numberRooms <= 3) 
+			copyRichBuilding();
+		else if(this.house.numberRooms <= 4) 
+			copyBigBuilding();
+		else
+			copyTetrisBuilding();
 		
 		Block signBlock = this.world.getBlockAt(x + 5,  y+1, z + 5);
 		this.turnToSign(signBlock);
+		
+		this.house.createBook(this.world);
 	}
 	
 	/**
@@ -127,11 +131,15 @@ public class HouseBuilder {
 	}
 
 	public void copyFromArea(int _x, int _y, int _z) {
-		this.copyFromArea(_x, _y, _z, true);
+		this.copyFromArea(_x, _y, _z, true, null, null);
 	}
 	
-	// x, y, z - center of copy area
-	public void copyFromArea(int _x, int _y, int _z, boolean copy_air)
+	public void copyFromArea(int _x, int _y, int _z, Material old_one, Material new_one)
+	{
+		this.copyFromArea(_x, _y, _z, true, old_one, new_one);
+	}
+
+	public void copyFromArea(int _x, int _y, int _z, boolean copy_air, Material old_one, Material new_one)
 	{
 		for (int i = -fieldSize / 2; i <= fieldSize / 2; i++) {
 			for (int j = -fieldSize / 2; j <= fieldSize / 2; j++) {
@@ -152,9 +160,15 @@ public class HouseBuilder {
 					else {
 						currentBlock =  this.world.getBlockAt(x + i,  y + k, z - j);
 					}
-				
+
 					if (copyBlock.getType() != Material.AIR) {
-					     currentBlock.setType(copyBlock.getType());
+						if(old_one != null && new_one != null && copyBlock.getType() == old_one)
+						{
+							currentBlock.setType(new_one);
+						}
+						else{
+							currentBlock.setType(copyBlock.getType());
+						}
 					}
 				}
 			}
@@ -163,16 +177,31 @@ public class HouseBuilder {
 	
 	public void copySmallBuilding()
 	{
-		copyFromArea(0, floorLevel, 0);
+		copyFromArea(4, floorLevel, 0, Material.STONE, Material.WOOD);
 	}
 	
 	public void copyBigBuilding()
 	{
-		copyFromArea(100, floorLevel, 0);
+		copyFromArea(103, floorLevel, 0);
 	}
 	
 	public void copyRichBuilding()
 	{
-		copyFromArea(200, floorLevel, 0);
+		Random ran = new Random();
+		int r = ran.nextInt(4);
+		
+		if(r == 0)
+			copyFromArea(198, floorLevel, 0, Material.LAPIS_BLOCK, Material.EMERALD_BLOCK);
+		else if(r == 1)
+			copyFromArea(198, floorLevel, 0, Material.LAPIS_BLOCK, Material.COAL_BLOCK);
+		else if(r == 2)
+			copyFromArea(198, floorLevel, 0, Material.LAPIS_BLOCK, Material.REDSTONE_BLOCK);
+		else
+			copyFromArea(198, floorLevel, 0);
+	}
+	
+	public void copyTetrisBuilding()
+	{
+		copyFromArea(301, floorLevel, 0);
 	}
 }
