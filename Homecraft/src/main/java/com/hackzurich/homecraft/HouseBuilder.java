@@ -15,7 +15,7 @@ public class HouseBuilder {
 	public static int floorLevel = 3;
 	
 	public static int fieldSize = 19;
-	public static int numberOfFieldsInDimension = 11;
+	public static int numberOfFieldsInDimension = 17;
 	
 	private HouseDTO house;
 	private Homecraft plugin;

@@ -16,7 +16,7 @@ public final class HomegateManager {
 	public HomegateManager() {}
 	
 	public ArrayList<HouseDTO> getData() throws Exception {
-		URL url = new URL("https://api-2445581357976.apicast.io:443/rs/real-estates?language=en&chooseType=purchflat&numberResults=20");
+		URL url = new URL("https://api-2445581357976.apicast.io:443/rs/real-estates?language=en&chooseType=purchflat&numberResults=100");
 		
 		HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 		connection.setRequestProperty("auth", "6b01599472a2225736789f76a39bcc73");
