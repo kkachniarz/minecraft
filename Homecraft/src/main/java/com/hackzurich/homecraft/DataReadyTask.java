@@ -90,7 +90,11 @@ public class DataReadyTask extends BukkitRunnable {
 		
 		
 		// Add some streets.
-		this.buildStreets(5);
+		this.buildStreets(this.data.size()/2);
+		
+		
+		EnvironmentGenerator envGenerator = new EnvironmentGenerator(this.plugin, player.getLocation());
+		envGenerator.build();
 	}
 	
 	/** Builds count number of streets. */

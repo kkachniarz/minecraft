@@ -30,22 +30,25 @@ public class StreetBuilder {
 	 * @param direction 0 for x and 1 for z
 	 */
 	public void buildOneElement(Location position, int direction) {
+		Material matOutside = Material.STONE;
+		Material matCenter = Material.COBBLESTONE;
+		
 		Location loc = position.clone();
 		World world = Bukkit.getServer().getWorld("Homecraft");
 		Block block = world.getBlockAt(loc);
-		block.setType(Material.COBBLESTONE);
+		block.setType(matCenter);
 		
 		if (direction == 0) {
 			loc = loc.add(1, 0, 0);
-			world.getBlockAt(loc).setType(Material.COBBLESTONE);
+			world.getBlockAt(loc).setType(matOutside);
 			loc = loc.subtract(2, 0, 0);
-			world.getBlockAt(loc).setType(Material.COBBLESTONE);
+			world.getBlockAt(loc).setType(matOutside);
 		}
 		else {
 			loc = loc.add(0, 0, 1);
-			world.getBlockAt(loc).setType(Material.COBBLESTONE);
+			world.getBlockAt(loc).setType(matOutside);
 			loc = loc.subtract(0, 0, 2);
-			world.getBlockAt(loc).setType(Material.COBBLESTONE);
+			world.getBlockAt(loc).setType(matOutside);
 		}
 	}
 	

@@ -77,6 +77,9 @@ public class HouseBuilder {
 			copyRichBuilding();
 		else
 			copySmallBuilding();
+		
+		Block signBlock = this.world.getBlockAt(x + 5,  y+1, z + 5);
+		this.turnToSign(signBlock);
 	}
 	
 	/**
@@ -122,11 +125,18 @@ public class HouseBuilder {
 
 		sign.update();
 	}
-	
-	// x, y, z - center of copy area
+
+	public void copyFromArea(int _x, int _y, int _z) {
+		this.copyFromArea(_x, _y, _z, true, null, null);
+	}
 	
 	public void copyFromArea(int _x, int _y, int _z, Material old_one, Material new_one)
-	{	
+	{
+		this.copyFromArea(_x, _y, _z, true, old_one, new_one);
+	}
+
+	public void copyFromArea(int _x, int _y, int _z, boolean copy_air, Material old_one, Material new_one)
+	{
 		for (int i = -fieldSize / 2; i <= fieldSize / 2; i++) {
 			for (int j = -fieldSize / 2; j <= fieldSize / 2; j++) {
 				for (int k = 0; k <= 10 * fieldSize; k++) {
@@ -146,27 +156,19 @@ public class HouseBuilder {
 					else {
 						currentBlock =  this.world.getBlockAt(x + i,  y + k, z - j);
 					}
-					
-					Material current = currentBlock.getType();
-										
-					if(old_one != null && new_one != null && current == old_one)
-					{
-						currentBlock.setType(new_one);
+
+					if (copyBlock.getType() != Material.AIR) {
+						if(old_one != null && new_one != null && copyBlock.getType() == old_one)
+						{
+							currentBlock.setType(new_one);
+						}
+						else{
+							currentBlock.setType(copyBlock.getType());
+						}
 					}
-					
-					else {
-						currentBlock.setType(copyBlock.getType());
-					}
-				
-					
 				}
 			}
 		}
-	}
-	
-	public void copyFromArea(int _x, int _y, int _z)
-	{
-		copyFromArea(_x, _y, _z, null, null);
 	}
 	
 	public void copySmallBuilding()
