@@ -1,6 +1,7 @@
 package com.hackzurich.homecraft;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -40,25 +41,44 @@ public class DataReadyTask extends BukkitRunnable {
 		
 		this.plugin.getLogger().info("minLat: " + minLat + " maxLat " + maxLat);
 		this.plugin.getLogger().info("minLon: " + minLon + " maxLon " + maxLon);
-		Normalizer normLat = new Normalizer(minLat, maxLat, 
-				-HouseBuilder.fieldSize * HouseBuilder.numberOfFieldsInDimension, 
-				 HouseBuilder.fieldSize * HouseBuilder.numberOfFieldsInDimension);
+		Normalizer normLat = new Normalizer(minLat, maxLat, 0, HouseBuilder.numberOfFieldsInDimension);
 		
-		Normalizer normLon = new Normalizer(minLon, maxLon, 
-				-HouseBuilder.fieldSize * HouseBuilder.numberOfFieldsInDimension, 
-				 HouseBuilder.fieldSize * HouseBuilder.numberOfFieldsInDimension);
+		Normalizer normLon = new Normalizer(minLon, maxLon, 0, HouseBuilder.numberOfFieldsInDimension);
 		
-		//ArrayList<ArrayList<boolean>> reservations = new ArrayList<ArrayList<boolean>>();
+		boolean[][] reservations = new boolean[HouseBuilder.numberOfFieldsInDimension][HouseBuilder.numberOfFieldsInDimension];
+        for (int row = 0; row < HouseBuilder.numberOfFieldsInDimension; row ++)
+            for (int col = 0; col < HouseBuilder.numberOfFieldsInDimension; col++)
+            	reservations[row][col] = false;
+        
+        // reserve player position
+        reservations[(int)HouseBuilder.numberOfFieldsInDimension/2 + 1][(int)HouseBuilder.numberOfFieldsInDimension/2 + 1] = true;
+        
+		Random rand = new Random();
 		
 		for (HouseDTO house : this.data) {
 			// Just build all these houses
 			house.latitude = normLat.Normalize(house.latitude);
 			house.longitude = normLon.Normalize(house.longitude);
 			
-			this.plugin.getLogger().info("Build house in (offset): (" + (int)house.latitude + ", " + (int)house.longitude + ")");
+			int coordX = (int)house.latitude, coordY = (int)house.longitude;
+			
+			coordX = Math.min(HouseBuilder.numberOfFieldsInDimension - 1, Math.max(coordX, 0));
+			coordY = Math.min(HouseBuilder.numberOfFieldsInDimension - 1, Math.max(coordY, 0));
+			this.plugin.getLogger().info(coordX + " " + coordY); // !
+			while(reservations[coordX][coordY] != false)
+			{
+				coordX = Math.min(HouseBuilder.numberOfFieldsInDimension - 1, Math.max(coordX + rand.nextInt(4) - 2, 0));
+				coordY = Math.min(HouseBuilder.numberOfFieldsInDimension - 1, Math.max(coordY + rand.nextInt(4) - 2, 0));
+			}
+			reservations[coordX][coordY] = true;
+			
+			this.plugin.getLogger().info("Build house in: (" + coordX + ", " + coordY + ")");
 			
 			Location loc = player.getLocation().clone();
-			loc.add((int)house.latitude, 0, (int)house.longitude);
+			loc.add((coordX - HouseBuilder.numberOfFieldsInDimension/2) * HouseBuilder.fieldSize, 
+					0, 
+					(coordY - HouseBuilder.numberOfFieldsInDimension/2) * HouseBuilder.fieldSize);
+			
 			this.plugin.getLogger().info("Build hous in (absolute): (" + (int) loc.getBlockX() + ", " + (int) loc.getBlockZ() + ")");
 			HouseBuilder builder = new HouseBuilder(this.plugin, loc, house);
 			builder.build();
