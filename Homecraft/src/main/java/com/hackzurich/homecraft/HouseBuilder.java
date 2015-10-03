@@ -1,6 +1,7 @@
 package com.hackzurich.homecraft;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -19,8 +20,13 @@ public class HouseBuilder {
 	private int x, y, z;
 	private World world;
 	
+	/** The orientation of the house. 0 to 3 */
+	private int orientation = 0;
+	
 	private void init() {
 		this.world = this.plugin.getServer().getWorld("Homecraft");
+		Random generator = new Random();
+		this.orientation = generator.nextInt(4);
 	}
 	
 	public HouseBuilder(Homecraft plugin, int x, int y, int z, HouseDTO house) {
