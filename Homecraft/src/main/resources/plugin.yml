@@ -5,3 +5,6 @@ commands:
    homecraft:
       description: The Homecraft command
       usage: /homecraft
+   text:
+      description: Send a message to a landlord
+      usage: /text

@@ -34,6 +34,20 @@ public class HouseDTO {
 		return new Location(Bukkit.getWorld("Homecraft"), this.latitude_absolute, 3, this.longitude_absolute);
 	}
 	
+	@Override public String toString() {
+	    StringBuilder result = new StringBuilder();
+	    String NEW_LINE = System.getProperty("line.separator");
+
+	    result.append(this.getClass().getName() + " Object {" + NEW_LINE);
+	    result.append(" numberRooms: " + numberRooms + NEW_LINE);
+	    result.append(" floor: " + floor + NEW_LINE);
+	    result.append(" sellingPrice: " + sellingPrice + NEW_LINE );
+	    result.append(" lift: " + lift + NEW_LINE);
+	    result.append("}");
+
+	    return result.toString();
+	  }
+	
 	public void createBook(World world) {
 		Block block = world.getBlockAt(this.latitude_absolute, 4, this.longitude_absolute);
 		block.setType(Material.CHEST);

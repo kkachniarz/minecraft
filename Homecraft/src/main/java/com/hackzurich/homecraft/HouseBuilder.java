@@ -175,17 +175,17 @@ public class HouseBuilder {
 	
 	public void copySmallBuilding()
 	{
-		copyFromArea(0, floorLevel, 0, Material.STONE, Material.WOOD);
+		copyFromArea(4, floorLevel, 0, Material.STONE, Material.WOOD);
 	}
 	
 	public void copyBigBuilding()
 	{
-		copyFromArea(100, floorLevel, 0);
+		copyFromArea(103, floorLevel, 0);
 	}
 	
 	public void copyRichBuilding()
 	{
-		copyFromArea(200, floorLevel, 0);
+		copyFromArea(198, floorLevel, 0);
 	}
 	
 	public void copyTetrisBuilding()
