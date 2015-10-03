@@ -2,6 +2,9 @@ package com.hackzurich.homecraft;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class DataReadyTask extends BukkitRunnable {
@@ -18,8 +21,12 @@ public class DataReadyTask extends BukkitRunnable {
 		this.plugin.getLogger().info("Got data! ");
 		this.plugin.getLogger().info(this.data.toString());
 		
-		// TODO: Process the houses!
 		
+		Player player = this.plugin.getServer().getOnlinePlayers()[0];
+		Location loc = player.getLocation();
+		for (HouseDTO house : this.data) {
+			
+		}
 	}
 
 }

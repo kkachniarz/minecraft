@@ -8,14 +8,6 @@ public class Homecraft extends JavaPlugin {
 	
 		// Setup the HomecraftCommandExecutor
 		getCommand("homecraft").setExecutor(new HomecraftCommandExecutor(this));
-        
-        // Try connector
-        try {
-            getLogger().info(HomegateManager.getData().toString());
-        } catch (Exception e) {
-        // TODO Auto-generated catch block
-        	e.printStackTrace();
-        }
 	}
 	
 	@Override

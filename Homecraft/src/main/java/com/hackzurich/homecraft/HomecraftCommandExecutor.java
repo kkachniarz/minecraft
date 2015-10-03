@@ -23,7 +23,7 @@ public class HomecraftCommandExecutor implements CommandExecutor {
 		}
 		
 		HomegateManager manager = new HomegateManager();
-		HomegateManagerTask task = HomegateManagerTask(this.plugin, manager);
+		HomegateManagerTask task = new HomegateManagerTask(this.plugin, manager);
 		task.runTaskAsynchronously(this.plugin);
 		
 		return false;

@@ -11,7 +11,7 @@ public class HomegateManagerTask extends BukkitRunnable {
 	private HomegateManager manager;
 	private Homecraft plugin;
 	
-	public HomegateManagerTask(Homecraft plugin ,HomegateManager manager) {
+	public HomegateManagerTask(Homecraft plugin, HomegateManager manager) {
 		this.manager = manager;
 		this.plugin = plugin;
 	}
