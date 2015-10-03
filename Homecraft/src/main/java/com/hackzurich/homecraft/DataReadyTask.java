@@ -23,9 +23,12 @@ public class DataReadyTask extends BukkitRunnable {
 		
 		
 		Player player = this.plugin.getServer().getOnlinePlayers()[0];
-		Location loc = player.getLocation();
+		Location loc = player.getLocation().clone();
 		for (HouseDTO house : this.data) {
-			
+			// Just build all these houses
+			loc.add(5, 0, 0);
+			HouseBuilder builder = new HouseBuilder(this.plugin, loc, house);
+			builder.build();
 		}
 	}
 

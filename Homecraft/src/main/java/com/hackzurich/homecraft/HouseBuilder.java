@@ -13,22 +13,22 @@ public class HouseBuilder {
 	private World world;
 	
 	private void init() {
-		this.world = plugin.getServer().getWorld("Homecraft");
+		this.world = this.plugin.getServer().getWorld("Homecraft");
 	}
 	
 	public HouseBuilder(Homecraft plugin, int x, int y, int z, HouseDTO house) {
+		this.plugin = plugin;
 		this.init();
 		this.house = house;
-		this.plugin = plugin;
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 	
 	public HouseBuilder(Homecraft plugin, Location location, HouseDTO house) {
+		this.plugin = plugin;
 		this.init();
 		this.house = house;
-		this.plugin = plugin;
 		this.x = location.getBlockX();
 		this.y = location.getBlockY();
 		this.z = location.getBlockZ();
