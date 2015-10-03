@@ -11,7 +11,7 @@ public class Homecraft extends JavaPlugin {
 		getLogger().info("onEnable has been invoked");
 		try {
 			HomegateManager.getData();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
