@@ -14,7 +14,7 @@ public class HouseBuilder {
 	
 	public static int floorLevel = 3;
 	
-	public static int fieldSize = 11;
+	public static int fieldSize = 19;
 	public static int numberOfFieldsInDimension = 11;
 	
 	private HouseDTO house;
@@ -76,7 +76,7 @@ public class HouseBuilder {
 		else if(this.house.sellingPrice >= 400000) 
 			copyRichBuilding();
 		else
-			copySmallBuilding();
+			copyTetrisBuilding();
 		
 		Block signBlock = this.world.getBlockAt(x + 5,  y+1, z + 5);
 		this.turnToSign(signBlock);
@@ -184,5 +184,10 @@ public class HouseBuilder {
 	public void copyRichBuilding()
 	{
 		copyFromArea(200, floorLevel, 0);
+	}
+	
+	public void copyTetrisBuilding()
+	{
+		copyFromArea(300, floorLevel, 0);
 	}
 }
