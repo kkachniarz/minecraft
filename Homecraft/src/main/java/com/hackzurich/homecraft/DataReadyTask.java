@@ -96,14 +96,21 @@ public class DataReadyTask extends BukkitRunnable {
 		EnvironmentGenerator envGenerator = new EnvironmentGenerator(this.plugin, player.getLocation());
 		envGenerator.build();
 	}
-	
-	/** Builds count number of streets. */
+
 	public void buildStreets(int count) {
+
 		for (int i = 0; i < count; i++) {
 			// Add a street
 			ArrayList<HouseDTO> houses = this.getHousePair();
 			HouseDTO start_house = houses.get(0);
 			HouseDTO end_house = houses.get(1);
+			
+			this.buildStreet(start_house, end_house);
+		}
+	}
+	
+	/** Builds count number of streets. */
+	public void buildStreet(HouseDTO start_house, HouseDTO end_house) {
 			this.plugin.getLogger().info("Start: " + start_house.toString());
 			this.plugin.getLogger().info("End: " + end_house.toString());
 			
@@ -132,7 +139,6 @@ public class DataReadyTask extends BukkitRunnable {
 			
 			builder = new StreetBuilder(start, 3, Math.abs(ydistance + 1));
 			builder.build();
-		}
 	}
 	
 	/** Get a pair of houses (to connect by roads) */
@@ -153,4 +159,16 @@ public class DataReadyTask extends BukkitRunnable {
 		return list;
 	}
 
+	
+	public void buildPlayerStreets(Player player) {
+		HouseDTO playerHouse = new HouseDTO();
+		playerHouse.latitude_absolute = player.getLocation().getBlockX();
+		playerHouse.longitude_absolute = player.getLocation().getBlockZ();
+		
+		ArrayList<HouseDTO> houseList = this.getHousePair();
+		
+		for (HouseDTO house : houseList) {
+			this.buildStreet(playerHouse, house);
+		}
+	}
 }
