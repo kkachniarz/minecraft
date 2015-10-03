@@ -77,6 +77,9 @@ public class HouseBuilder {
 			copyRichBuilding();
 		else
 			copySmallBuilding();
+		
+		Block signBlock = this.world.getBlockAt(x + 5,  y+1, z + 5);
+		this.turnToSign(signBlock);
 	}
 	
 	/**
