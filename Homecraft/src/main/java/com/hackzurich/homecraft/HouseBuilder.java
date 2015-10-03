@@ -7,6 +7,9 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 
 public class HouseBuilder {
+	
+	public static int fieldSize = 31;
+	
 	private HouseDTO house;
 	private Homecraft plugin;
 	private int x, y, z;
