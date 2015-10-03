@@ -1,24 +1,20 @@
 package com.hackzurich.homecraft;
 
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.List;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import javax.net.ssl.HttpsURLConnection;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public final class HomegateManager {
-	private HomegateManager() {}
+	public HomegateManager() {}
 	
-	public static ArrayList<HouseDTO> getData() throws Exception {
+	public ArrayList<HouseDTO> getData() throws Exception {
 		URL url = new URL("https://api-2445581357976.apicast.io:443/rs/real-estates?language=en&chooseType=purchflat");
 		
 		HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
@@ -39,7 +35,7 @@ public final class HomegateManager {
 		return getDataFromJson(jsonObject);
 	}
 	
-	private static ArrayList<HouseDTO> getDataFromJson(JSONObject jsonObject) throws Exception {
+	private ArrayList<HouseDTO> getDataFromJson(JSONObject jsonObject) throws Exception {
 		ArrayList<HouseDTO> houses = new ArrayList<HouseDTO>();
 		JSONArray array = jsonObject.getJSONArray("items");
 		for(int i = 0 ; i < array.length() ; i++){
