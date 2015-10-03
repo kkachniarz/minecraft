@@ -124,8 +124,9 @@ public class HouseBuilder {
 	}
 	
 	// x, y, z - center of copy area
-	public void copyFromArea(int _x, int _y, int _z)
-	{
+	
+	public void copyFromArea(int _x, int _y, int _z, Material old_one, Material new_one)
+	{	
 		for (int i = -fieldSize / 2; i <= fieldSize / 2; i++) {
 			for (int j = -fieldSize / 2; j <= fieldSize / 2; j++) {
 				for (int k = 0; k <= 10 * fieldSize; k++) {
@@ -145,16 +146,32 @@ public class HouseBuilder {
 					else {
 						currentBlock =  this.world.getBlockAt(x + i,  y + k, z - j);
 					}
+					
+					Material current = currentBlock.getType();
+										
+					if(old_one != null && new_one != null && current == old_one)
+					{
+						currentBlock.setType(new_one);
+					}
+					
+					else {
+						currentBlock.setType(copyBlock.getType());
+					}
 				
-					currentBlock.setType(copyBlock.getType());
+					
 				}
 			}
 		}
 	}
 	
+	public void copyFromArea(int _x, int _y, int _z)
+	{
+		copyFromArea(_x, _y, _z, null, null);
+	}
+	
 	public void copySmallBuilding()
 	{
-		copyFromArea(0, floorLevel, 0);
+		copyFromArea(0, floorLevel, 0, Material.STONE, Material.WOOD);
 	}
 	
 	public void copyBigBuilding()
