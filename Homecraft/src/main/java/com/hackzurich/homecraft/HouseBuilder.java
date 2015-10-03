@@ -12,7 +12,7 @@ import org.bukkit.block.Sign;
 
 public class HouseBuilder {
 	
-	public static int floorLevel = 3;
+	public static int floorLevel = 1;
 	
 	public static int fieldSize = 19;
 	public static int numberOfFieldsInDimension = 17;
