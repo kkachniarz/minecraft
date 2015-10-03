@@ -71,10 +71,12 @@ public class HouseBuilder {
 		}
 		*/
 		
-		if(this.house.numberRooms >= 4)
-			copyBigBuilding();
-		else if(this.house.sellingPrice >= 400000) 
+		if(this.house.numberRooms <= 2)
+			copySmallBuilding();
+		else if(this.house.numberRooms <= 3) 
 			copyRichBuilding();
+		else if(this.house.numberRooms <= 4) 
+			copyBigBuilding();
 		else
 			copyTetrisBuilding();
 		
@@ -185,7 +187,17 @@ public class HouseBuilder {
 	
 	public void copyRichBuilding()
 	{
-		copyFromArea(198, floorLevel, 0);
+		Random ran = new Random();
+		int r = ran.nextInt(4);
+		
+		if(r == 0)
+			copyFromArea(198, floorLevel, 0, Material.LAPIS_BLOCK, Material.EMERALD_BLOCK);
+		else if(r == 1)
+			copyFromArea(198, floorLevel, 0, Material.LAPIS_BLOCK, Material.COAL_BLOCK);
+		else if(r == 2)
+			copyFromArea(198, floorLevel, 0, Material.LAPIS_BLOCK, Material.REDSTONE_BLOCK);
+		else
+			copyFromArea(198, floorLevel, 0);
 	}
 	
 	public void copyTetrisBuilding()
