@@ -50,6 +50,9 @@ public class DataReadyTask extends BukkitRunnable {
             for (int col = 0; col < HouseBuilder.numberOfFieldsInDimension; col++)
             	reservations[row][col] = false;
         
+        // reserve player position
+        reservations[(int)HouseBuilder.numberOfFieldsInDimension/2 + 1][(int)HouseBuilder.numberOfFieldsInDimension/2 + 1] = true;
+        
 		Random rand = new Random();
 		
 		for (HouseDTO house : this.data) {
