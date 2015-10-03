@@ -40,8 +40,15 @@ public class DataReadyTask extends BukkitRunnable {
 		
 		this.plugin.getLogger().info("minLat: " + minLat + " maxLat " + maxLat);
 		this.plugin.getLogger().info("minLon: " + minLon + " maxLon " + maxLon);
-		Normalizer normLat = new Normalizer(minLat, maxLat, -30.0, 30.0);
-		Normalizer normLon = new Normalizer(minLon, maxLon, -30.0, 30.0);
+		Normalizer normLat = new Normalizer(minLat, maxLat, 
+				-HouseBuilder.fieldSize * HouseBuilder.numberOfFieldsInDimension, 
+				 HouseBuilder.fieldSize * HouseBuilder.numberOfFieldsInDimension);
+		
+		Normalizer normLon = new Normalizer(minLon, maxLon, 
+				-HouseBuilder.fieldSize * HouseBuilder.numberOfFieldsInDimension, 
+				 HouseBuilder.fieldSize * HouseBuilder.numberOfFieldsInDimension);
+		
+		//ArrayList<ArrayList<boolean>> reservations = new ArrayList<ArrayList<boolean>>();
 		
 		for (HouseDTO house : this.data) {
 			// Just build all these houses
