@@ -27,6 +27,7 @@ public class DataReadyTask extends BukkitRunnable {
 		double minLat = Double.MAX_VALUE, maxLat = Double.MIN_VALUE, 
 			   minLon = Double.MAX_VALUE, maxLon = Double.MIN_VALUE;
 		
+		
 		for (HouseDTO house : this.data) {
 			if(house.latitude > maxLat)
 				maxLat = house.latitude;
@@ -79,10 +80,62 @@ public class DataReadyTask extends BukkitRunnable {
 					0, 
 					(coordY - HouseBuilder.numberOfFieldsInDimension/2) * HouseBuilder.fieldSize);
 			
+			house.latitude_absolute = loc.getBlockX();
+			house.longitude_absolute = loc.getBlockZ();
+			
 			this.plugin.getLogger().info("Build hous in (absolute): (" + (int) loc.getBlockX() + ", " + (int) loc.getBlockZ() + ")");
 			HouseBuilder builder = new HouseBuilder(this.plugin, loc, house);
 			builder.build();
 		}
+		
+		
+		// Add some streets.
+		this.buildStreets(3);
+	}
+	
+	/** Builds count number of streets. */
+	public void buildStreets(int count) {
+		for (int i = 0; i < count; i++) {
+			// Add a street
+			ArrayList<HouseDTO> houses = this.getHousePair();
+			HouseDTO start_house = houses.get(0);
+			HouseDTO end_house = houses.get(1);
+			this.plugin.getLogger().info("Start: " + start_house.toString());
+			this.plugin.getLogger().info("End: " + end_house.toString());
+			
+			// Calculate how to connect these houses
+			int xdistance = end_house.latitude_absolute - start_house.latitude_absolute;
+			int ydistance = end_house.longitude_absolute - start_house.latitude_absolute;
+			
+			Location start = null;
+			if (xdistance < 0) {
+				start = end_house.getLocation();
+			}
+			else {
+				start = start_house.getLocation();
+			}
+
+			StreetBuilder builder = new StreetBuilder(start, 0, Math.abs(xdistance));
+			builder.build();
+		}
+	}
+	
+	/** Get a pair of houses (to connect by roads) */
+	public ArrayList<HouseDTO> getHousePair() {
+		int count = this.data.size();
+		
+		Random generator = new Random();
+		int first = generator.nextInt(count);
+		
+		int second = first;
+		while (second == first) {
+			second = generator.nextInt(count);
+		}
+		
+		ArrayList<HouseDTO> list = new ArrayList<HouseDTO>();
+		list.add(this.data.get(first));
+		list.add(this.data.get(second));
+		return list;
 	}
 
 }
