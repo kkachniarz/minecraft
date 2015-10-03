@@ -54,7 +54,7 @@ public class HouseDTO {
 		thirdPage = thirdPage + " \n\n Price: " + this.sellingPrice;
 		meta.setPages(Arrays.asList(firstPage, thirdPage));
 		meta.setAuthor("homegate.ch");
-		meta.setTitle("foo");
+		meta.setTitle("Offer");
 
 		stack.setItemMeta(meta);
 		inventory.addItem(stack);
