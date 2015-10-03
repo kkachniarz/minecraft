@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 public final class HomegateManager {
 	private HomegateManager() {}
+	
 	public static ArrayList<HouseDTO> getData() throws Exception {
 		URL url = new URL("https://api-2445581357976.apicast.io:443/rs/real-estates?language=en&chooseType=purchflat");
 		

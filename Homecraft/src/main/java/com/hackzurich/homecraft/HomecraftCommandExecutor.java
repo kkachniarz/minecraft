@@ -21,14 +21,10 @@ public class HomecraftCommandExecutor implements CommandExecutor {
 		if (!(sender instanceof Player)) {
 			return false;
 		}
-		Player player = (Player)sender;
 		
-		Location playerLocation = player.getLocation();
-		int x = playerLocation.getBlockX();
-		int y = playerLocation.getBlockY();
-		int z = playerLocation.getBlockZ();
-		Block currentBlock = player.getWorld().getBlockAt(x+5, y, z);
-		currentBlock.setType(Material.DIAMOND_BLOCK);
+		HomegateManager manager = new HomegateManager();
+		HomegateManagerTask task = HomegateManagerTask(this.plugin, manager);
+		task.runTaskAsynchronously(this.plugin);
 		
 		return false;
 	}
