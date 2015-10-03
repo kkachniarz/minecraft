@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.bukkit.Bukkit;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -30,6 +31,8 @@ public final class HomegateManager {
 	    while ((inputStr = streamReader.readLine()) != null)
 	        responseStrBuilder.append(inputStr);
 
+	    Bukkit.getServer().getLogger().info(responseStrBuilder.toString());
+	    
 	    JSONObject jsonObject = new JSONObject(responseStrBuilder.toString());
 		
 		return getDataFromJson(jsonObject);
@@ -57,6 +60,12 @@ public final class HomegateManager {
 			if(obj.has("sellingPrice")) {
 				house.sellingPrice = obj.getDouble("sellingPrice");
 			}
+			if(obj.has("adDescription")) {
+				house.description = obj.getString("adDescription");
+			}			
+			if(obj.has("title")) {
+				house.title = obj.getString("title");
+			}			
 			if(obj.has("geoLocation")) {
 				String[] parts = obj.getString("geoLocation").split(",");
 				house.latitude = Double.parseDouble(parts[0]);

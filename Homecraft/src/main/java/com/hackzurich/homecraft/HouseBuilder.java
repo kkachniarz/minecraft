@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 
 public class HouseBuilder {
 	private HouseDTO house;
@@ -40,9 +41,24 @@ public class HouseBuilder {
 	public void build() {
 		int roomCount = this.house.numberRooms;
 		
+		Block signBlock = this.world.getBlockAt(x,  y+1, z);
+		this.turnToSign(signBlock);
+		
 		for (int i = 0; i < roomCount; i++) {
 			Block currentBlock = this.world.getBlockAt(x, y, z+i);
 			currentBlock.setType(Material.GOLD_BLOCK);
 		}
+	}
+	
+	/**
+	 * Get the sign containing the description.
+	 */
+	public void turnToSign(Block block) 
+	{
+		block.setType(Material.SIGN_POST);
+		
+		Sign sign = (Sign)block.getState();
+		sign.setLine(1, this.house.title);
+		sign.update();
 	}
 }

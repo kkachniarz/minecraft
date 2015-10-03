@@ -11,5 +11,7 @@ public class HouseDTO {
 	public ArrayList<String> pictures;
 	public boolean lift;
 	public boolean balcony;
+	public String description;
+	public String title;
 
 }
